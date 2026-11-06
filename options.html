@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="options.documentTitle">设置 · qBittorrent 磁力快传</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one" aria-hidden="true"></div>
+    <div class="page-glow page-glow-two" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="page-header">
+        <div class="brand">
+          <img src="icons/icon-128.png" alt="" width="52" height="52" />
+          <div>
+            <p class="eyebrow">qBittorrent · Chrome Extension</p>
+            <h1 data-i18n="options.brand">磁力快传</h1>
+          </div>
+        </div>
+        <div class="header-tools">
+          <button
+            class="language-button"
+            id="languageBtn"
+            type="button"
+            title="切换到英文"
+            aria-label="切换到英文"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+            </svg>
+            <span id="languageLabel">EN</span>
+          </button>
+          <span class="secure-pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 10V8a5 5 0 0 1 10 0v2" />
+              <rect x="4" y="10" width="16" height="10" rx="2" />
+            </svg>
+            <span data-i18n="options.secure">凭据仅存本机</span>
+          </span>
+        </div>
+      </header>
+
+      <div class="intro">
+        <h2 data-i18n="options.introTitle">连接你的 qBittorrent</h2>
+        <p data-i18n="options.introDescription">
+          设置一次，之后在扩展弹窗里粘贴磁力链接即可开始下载。扩展不会修改下载路径、分类、限速或暂停状态，所有下载配置都由 qBittorrent 自己决定。
+        </p>
+      </div>
+
+      <form id="settingsForm" class="settings-card" novalidate>
+        <div class="card-heading">
+          <div>
+            <span class="section-number">01</span>
+            <h2 data-i18n="options.connectionHeading">WebUI 连接</h2>
+          </div>
+          <span class="card-note">HTTP / HTTPS</span>
+        </div>
+
+        <div class="field field-wide">
+          <label for="baseUrl" data-i18n="options.baseUrlLabel">WebUI 地址</label>
+          <div class="input-wrap">
+            <span class="input-prefix" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+              </svg>
+            </span>
+            <input
+              id="baseUrl"
+              name="baseUrl"
+              type="text"
+              inputmode="url"
+              autocomplete="url"
+              spellcheck="false"
+              placeholder="http://192.168.1.10:8080"
+              aria-describedby="baseUrlHelp"
+              required
+            />
+          </div>
+          <p class="field-help" id="baseUrlHelp" data-i18n-html="options.baseUrlHelpHtml">
+            填 qBittorrent 的完整访问地址，可带反向代理子路径，例如
+            <code>https://example.com/qbt</code>。不要填 <code>/api/v2</code>。
+          </p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="username" data-i18n="options.usernameLabel">用户名</label>
+            <div class="input-wrap">
+              <span class="input-prefix" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21a8 8 0 0 1 16 0" />
+                </svg>
+              </span>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                spellcheck="false"
+                data-i18n-placeholder="options.usernamePlaceholder"
+                placeholder="qBittorrent 用户名"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password" data-i18n="options.passwordLabel">密码</label>
+            <div class="input-wrap">
+              <span class="input-prefix" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="5" y="10" width="14" height="10" rx="2" />
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                </svg>
+              </span>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                data-i18n-placeholder="options.passwordPlaceholder"
+                placeholder="qBittorrent 密码"
+                required
+              />
+              <button
+                class="password-toggle"
+                id="passwordToggle"
+                type="button"
+                aria-label="显示密码"
+                aria-controls="password"
+                aria-pressed="false"
+                data-i18n="options.passwordShow"
+              >
+                显示
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="permission-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 4 6v5c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-3Z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          <p data-i18n="options.permissionNote">
+            保存时 Chrome 会请求访问上面这个地址的权限。扩展只会连接你填写的 qBittorrent，
+            不会读取其他网站。首次使用需要允许，否则无法发送任务。
+          </p>
+        </div>
+
+        <div class="status" id="status" role="status" aria-live="polite" hidden>
+          <span class="status-mark" aria-hidden="true"></span>
+          <div class="status-copy">
+            <strong id="statusTitle"></strong>
+            <span id="statusDetail"></span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a
+            class="button button-quiet webui-link"
+            id="webuiLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            hidden
+          >
+            <span data-i18n="options.button.openWebui">打开 WebUI</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 4h6v6M20 4l-9 9" />
+              <path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" />
+            </svg>
+          </a>
+          <button class="button button-primary" id="saveBtn" type="submit">
+            <span class="button-label" data-i18n="options.button.save">保存并测试连接</span>
+            <span class="button-spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+      </form>
+
+      <section class="details-card" aria-labelledby="howItWorks">
+        <div class="details-intro">
+          <span class="section-number">02</span>
+          <h2 id="howItWorks" data-i18n="options.details.title">工作方式</h2>
+          <p data-i18n="options.details.description">简单、透明，不接管你的下载规则。</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>1</span>
+            <div>
+              <strong data-i18n="options.details.step1Title">登录</strong>
+              <p data-i18n="options.details.step1Description">
+                每次操作先通过 qBittorrent WebUI API 登录，结束后立即退出会话。
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>2</span>
+            <div>
+              <strong data-i18n="options.details.step2Title">提交磁力</strong>
+              <p data-i18n-html="options.details.step2DescriptionHtml">
+                只发送磁力链接到 <code>/api/v2/torrents/add</code>，不携带覆盖参数。
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>3</span>
+            <div>
+              <strong data-i18n="options.details.step3Title">按默认下载</strong>
+              <p data-i18n="options.details.step3Description">
+                保存路径、分类、标签、限速、暂停等全部沿用 qBittorrent 当前默认设置。
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <footer class="page-footer">
+        <p data-i18n-html="options.footerHtml">
+          账号密码保存在本机 Chrome 的 <code>chrome.storage.local</code> 中，不会同步到云端，
+          也不会发送给 qBittorrent 以外的服务。
+        </p>
+        <span id="versionLabel">v1.1.0</span>
+      </footer>
+    </main>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

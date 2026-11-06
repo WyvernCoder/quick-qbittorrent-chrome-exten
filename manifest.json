@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "qBittorrent 磁力快传",
+  "short_name": "磁力快传",
+  "version": "1.1.0",
+  "description": "一键将磁力链接添加到 qBittorrent，全部沿用默认下载设置。Add magnet links to qBittorrent in one click with default settings. 中文/English UI.",
+  "minimum_chrome_version": "109",
+  "permissions": ["storage"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "qBittorrent 磁力快传",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "options_page": "options.html"
+}

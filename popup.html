@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="popup.documentTitle">qBittorrent 磁力快传</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div class="brand">
+          <img class="brand-icon" src="icons/icon-48.png" alt="" width="38" height="38" />
+          <div class="brand-copy">
+            <h1 data-i18n="popup.brand">磁力快传</h1>
+            <p>qBittorrent</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <a
+            class="icon-button"
+            id="webuiLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-i18n-title="common.openWebui"
+            data-i18n-aria-label="common.openWebui"
+            title="打开 qBittorrent WebUI"
+            aria-label="打开 qBittorrent WebUI"
+            hidden
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 4h6v6M20 4l-9 9" />
+              <path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" />
+            </svg>
+          </a>
+          <button
+            class="icon-button language-button"
+            id="languageBtn"
+            type="button"
+            title="切换到英文"
+            aria-label="切换到英文"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+            </svg>
+            <span id="languageLabel">EN</span>
+          </button>
+          <button
+            class="icon-button"
+            id="settingsBtn"
+            type="button"
+            data-i18n-title="common.openSettings"
+            data-i18n-aria-label="common.openSettings"
+            title="扩展设置"
+            aria-label="打开扩展设置"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" />
+              <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 9 19.37a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15 1.7 1.7 0 0 0 3.08 14H3v-4h.08A1.7 1.7 0 0 0 4.63 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63h.01A1.7 1.7 0 0 0 10 3.08V3h4v.08A1.7 1.7 0 0 0 15 4.63a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9v.01A1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section
+          id="loadingView"
+          class="loading-view"
+          data-i18n-aria-label="popup.loadingAria"
+          aria-label="正在读取配置"
+        >
+          <span class="spinner" aria-hidden="true"></span>
+          <span data-i18n="popup.loading">正在读取配置…</span>
+        </section>
+
+        <section id="setupView" class="state-card" hidden>
+          <div class="state-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4" />
+              <path d="M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" />
+            </svg>
+          </div>
+          <h2 id="setupTitle" data-i18n="popup.setup.title">先连接你的 qBittorrent</h2>
+          <p id="setupDescription" data-i18n="popup.setup.description">
+            填写 WebUI 地址、用户名和密码。连接测试通过后，就可以一键添加磁力任务。
+          </p>
+          <button class="button button-primary" id="setupBtn" type="button" data-i18n="popup.setup.action">
+            打开设置
+          </button>
+        </section>
+
+        <section id="permissionView" class="state-card" hidden>
+          <div class="state-icon state-icon-warn" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 8v5m0 3h.01" />
+              <path d="M10.3 4.5 2.8 17.4A2 2 0 0 0 4.5 20h15a2 2 0 0 0 1.7-2.6L13.7 4.5a2 2 0 0 0-3.4 0Z" />
+            </svg>
+          </div>
+          <h2 data-i18n="popup.permission.title">需要访问授权</h2>
+          <p>
+            <span data-i18n="popup.permission.lead">允许扩展访问</span>
+            <strong id="permissionHost">该地址</strong><span data-i18n="popup.permission.tail">，才能连接你的 qBittorrent。</span>
+          </p>
+          <div class="state-actions">
+            <button class="button button-primary" id="grantBtn" type="button" data-i18n="popup.permission.grant">
+              授权访问
+            </button>
+            <button
+              class="button button-quiet"
+              id="permissionSettingsBtn"
+              type="button"
+              data-i18n="popup.permission.settings"
+            >
+              打开设置
+            </button>
+          </div>
+        </section>
+
+        <section id="mainView" hidden>
+          <div class="server-line">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="server-address" id="serverAddress"></span>
+            <span class="default-badge" data-i18n="common.defaultBadge">默认设置</span>
+          </div>
+
+          <form id="addForm" novalidate>
+            <div class="field-heading">
+              <label for="magnetInput" data-i18n="popup.magnetLabel">磁力链接</label>
+              <span class="input-meta" id="inputMeta">每行一条</span>
+            </div>
+            <div class="textarea-shell">
+              <textarea
+                id="magnetInput"
+                name="magnet"
+                rows="5"
+                spellcheck="false"
+                autocomplete="off"
+                data-i18n-placeholder="popup.placeholder"
+                placeholder="magnet:?xt=urn:btih:..."
+                aria-describedby="magnetHint magnetError"
+                required
+              ></textarea>
+              <span class="textarea-corner" aria-hidden="true">MAGNET</span>
+            </div>
+            <p class="field-error" id="magnetError" role="alert" hidden></p>
+            <p class="hint" id="magnetHint" data-i18n="popup.hint">
+              支持一次粘贴多条，每行一条。下载路径、分类、限速等全部沿用 qBittorrent 默认配置。
+            </p>
+
+            <button class="submit-button" id="submitBtn" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v11m0 0 4-4m-4 4-4-4" />
+                <path d="M5 19h14" />
+              </svg>
+              <span id="submitLabel" data-i18n="popup.submit">开始下载</span>
+            </button>
+          </form>
+
+          <div class="status" id="status" role="status" aria-live="polite" hidden>
+            <span class="status-mark" aria-hidden="true"></span>
+            <div class="status-copy">
+              <strong id="statusTitle"></strong>
+              <span id="statusDetail"></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <span data-i18n="popup.footer">链接只会发送到你配置的 qBittorrent</span>
+        <span id="versionLabel">v1.1.0</span>
+      </footer>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
